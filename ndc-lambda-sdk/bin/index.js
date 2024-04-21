@@ -23,16 +23,16 @@ const tsConfigFileLocation =
     : undefined
   )
   ?? require.resolve("@tsconfig/node20/tsconfig.json");
-const watchMode = hostOpts?.watch ?? false;
+// const watchMode = hostOpts?.watch ?? false;
 
 const hostScriptPath = path.resolve(__dirname, "../dist/src/host.js")
 const projectArgs = tsConfigFileLocation ? ["--project", tsConfigFileLocation] : []
 const tsNodeArgs = [...projectArgs, "--pretty", hostScriptPath, ...process.argv.slice(2)];
 
-const [command, args] =
-  watchMode
-    ? ["ts-node-dev", ["--respawn", ...tsNodeArgs]]
-    : ["ts-node", tsNodeArgs]
+// const [command, args] =
+//   watchMode
+//     ? ["ts-node-dev", ["--respawn", ...tsNodeArgs]]
+//     : ["ts-node", tsNodeArgs]
 
 const childProcess = spawn(command, args, { stdio: "inherit" })
 process.on("SIGTERM", () => childProcess.kill("SIGTERM"));
